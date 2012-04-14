@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=DataCrow
+GenericName=DataCrow
+Comment=Data Crow is a movie, video, book, software, and music cataloguer/database
+Exec=datacrow
+Icon=datacrow
+Terminal=false
+Type=Application
+Categories=Office;Database;
