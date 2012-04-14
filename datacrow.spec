@@ -1,12 +1,12 @@
 # TODO
 # - bashism: Requires: /bin/bash
-# - bundled ix86 binaries: Requires:  libc.so.6 libc.so.6(GLIBC_2.0)
+# - try use xdg paths
 
 %define	ver	%(echo %{version} | tr . _)
 Summary:	Data Crow is a movie, video, book, software, and music cataloguer/database
 Name:		datacrow
 Version:	3.9.3
-Release:	0.3
+Release:	0.4
 License:	GPL v3
 Group:		X11/Applications
 URL:		http://www.datacrow.net/
@@ -59,7 +59,6 @@ Requires:	jre >= 1.6
 #Requires:	liquidlnf
 #Requires:	metadata-extractor
 #Requires:	xalan-j2-xsltc
-BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -93,6 +92,8 @@ instance remotely at the same time.
 mv %{name}/* .
 
 %build
+%{__cc} %{rpmcxxflags} %{rpmcflags} %{rpmldflags} -o discid plugins/discid/linux/discid.c
+
 export LC_ALL=en_US # source code not US-ASCII
 %ant \
 	-Dfile.encoding=iso-8859-1
@@ -101,7 +102,7 @@ export LC_ALL=en_US # source code not US-ASCII
 rm -rf $RPM_BUILD_ROOT
 # discid
 install -d $RPM_BUILD_ROOT%{_bindir}
-install -p plugins/discid/linux/discid $RPM_BUILD_ROOT%{_bindir}
+install -p discid $RPM_BUILD_ROOT%{_bindir}
 
 # jars
 install -d $RPM_BUILD_ROOT%{_javadir}/%{name}
